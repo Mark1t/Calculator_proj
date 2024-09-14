@@ -16,7 +16,6 @@ function divide(x, y){
 
 function operate(){
     let equation = resultdisplay.value;
-    console.log(equation)
     let operatorIndex = equation.search(/[+\-*\/]/);
     let operator = equation[operatorIndex];
 
@@ -25,6 +24,9 @@ function operate(){
 
     console.log(n1, operator, n2);
 
+    if(n1 == '' || n2 == '' || operator == ''){
+        resultdisplay.value = resultdisplay.value;
+    }
     if(operator == '+'){
         resultdisplay.value = add(n1, n2);
     }
@@ -35,12 +37,16 @@ function operate(){
         resultdisplay.value = multiply(n1, n2);
     }
     else if(operator == '/'){
-        resultdisplay.value = divide(n1, n2);
+        if(n2 == 0){
+            resultdisplay.value = "The universe.. is crashing!";
+        }
+        else{
+            resultdisplay.value = divide(n1, n2);
+        }
     }
     else {
         resultdisplay.value = "Error occured!";
     }
-    console.log(resultdisplay.value)
 }
 
 let resultdisplay = document.getElementById("result")
