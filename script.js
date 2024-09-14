@@ -14,31 +14,56 @@ function divide(x, y){
     return x / y;
 }
 
-function operate(x, op, y){
-    if(op == '+'){
-        return add(x,y );
+function operate(){
+    let equation = resultdisplay.value;
+    console.log(equation)
+    let operatorIndex = equation.search(/[+\-*\/]/);
+    let operator = equation[operatorIndex];
+
+    let n1 = Number(equation.slice(0,operatorIndex));
+    let n2 = Number(equation.slice(operatorIndex + 1));
+
+    console.log(n1, operator, n2);
+
+    if(operator == '+'){
+        resultdisplay.value = add(n1, n2);
     }
-    else if(op == '-'){
-        return substract(x,y );
+    else if(operator == '-'){
+        resultdisplay.value = substract(n1, n2);
     }
-    else if(op =='*'){
-        return multiply(x,y );
+    else if(operator =='*'){
+        resultdisplay.value = multiply(n1, n2);
     }
-    else if(op == '/'){
-        return divide(x,y );
+    else if(operator == '/'){
+        resultdisplay.value = divide(n1, n2);
     }
+    else {
+        resultdisplay.value = "Error occured!";
+    }
+    console.log(resultdisplay.value)
 }
 
-let result = document.getElementById("result");
+let resultdisplay = document.getElementById("result")
 
-let nums = document.querySelectorAll("num");
+let clearbut = document.getElementById("clear")
+clearbut.addEventListener('click',clearDisplay)
 
+//resultdisplay.value = "5"
+let inp = document.getElementsByClassName("add")
+//console.log(inp)
 
+for (let i = 0; i < inp.length; i++) {
+    inp[i].addEventListener('click', updateDisplay)
+    
+}
 
+function updateDisplay(){
+    resultdisplay.value += this.textContent;
+}
 
-//test
-console.log(add(3, 5))
-console.log(substract(3, 5))
-console.log(multiply(3, 5))
-console.log(divide(3, 5))
-console.log(operate(3,'+',5))
+function clearDisplay(){
+    resultdisplay.value = "";
+}
+
+let calculate = document.getElementById("calc");
+calculate.addEventListener('click', operate);
